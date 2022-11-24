@@ -43,6 +43,11 @@
 
 # Namespace
 
+* create Namespace by yaml file
+```yaml
+    kubectl create -f admin/<NAMESPACE_NAME>.yaml
+```
+
 * set context namespace
 ```yaml
     kubectl config set-context --current --namespace=<NAMESPACE_NAME>
@@ -53,6 +58,8 @@
 * get Namespace
 ```yaml
     kubectl get namespace
+    # get current namespace 
+    kubectl config view | grep namespace
 ```
 
 # PODS
@@ -84,7 +91,7 @@
 
 * create service
 ```yaml
-    kubectl create -f service.yaml
+    kubectl create -f ./services/networking/<SERVICE_NAME>.yaml
 ```
 * get service 
 ```yaml
@@ -97,7 +104,7 @@
 ```
 * Apply service with yaml conf
 ```yaml
-    kubectl apply -f ./service/networking/<SERVICE_NAME>.yaml
+    kubectl apply -f ./services/networking/<SERVICE_NAME>.yaml
     #or
     kubectl expose deployment/<POD_NAME>
 ```

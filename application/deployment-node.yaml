@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: node-web-app:latest
+        image: node-web-app:1.1.0
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
@@ -26,5 +26,22 @@ spec:
             memory: "200Mi"
           requests:
             memory: "100Mi"
+        ports:
+        - name: liveness-port
+          containerPort: 8080
+          hostPort: 8080
 
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: liveness-port
+          failureThreshold: 1
+          periodSeconds: 10
+
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: liveness-port
+          failureThreshold: 3
+          periodSeconds: 10
 
