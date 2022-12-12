@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: sharedvolume
+    namespace: default
+spec:
+  containers:
+  - name: alphacont
+    image: nginx
+    volumeMounts:
+    - mountPath: /alphadir
+      name: sharevol
+  - name: betacont
+    image: nginx
+    volumeMounts:
+    - mountPath: /betadir
+      name: sharevol
+  volumes:
+  - name: sharevol
+    emptyDir: {}

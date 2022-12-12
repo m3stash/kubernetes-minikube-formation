@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-app
+spec:
+  selector:
+    matchLabels:
+      app: nginx-app
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+      - name: nginx-app
+        image: nginx
+        env:
+        - name: ilike
+          valueFrom:
+            configMapKeyRef:
+              name: colors
+              key: favorite  
+        envFrom:
+        - configMapRef:
+            name: colors
+        volumeMounts:
+        - mountPath: /etc/cars
+          name: car-vol
+        - mountPath: /opt
+          name: nfs-vol
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "200Mi"
+          requests:
+            memory: "100Mi"
+        readinessProbe:
+          periodSeconds: 5
+          exec:
+            command:
+            - ls
+            - /etc/cars
+      volumes:
+      - name: car-vol
+        configMap:
+          defaultMode: 420
+          name: fast-car
+      - name: nfs-vol
+        persistentVolumeClaim:
+          claimName: pvc-one

@@ -96,6 +96,23 @@
 ```shell
     kubectl get pods -A
 ```
+* get container of pod
+```shell
+    kubectl get pods <POD_NAME> -o jsonpath='{.spec.containers[*].name}
+```
+
+## Imperativ / declarativ methode 
+```shell
+    # create -> imperative management (create / delete etc.)
+    kubectl create -f pod.yaml
+    # create a new kubernetes object ONLY for new object
+    # useful for Troubleshootung, learnin, interactive experimentation
+```
+```shell
+    # apply -> Declarativ management
+    # useful for reproductible Deployment (define what we want in yaml files!)
+
+```
 
 # Services
 
@@ -127,3 +144,30 @@
 
 # Important links 
 * [cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
+# others 
+* delete pods in error
+```
+    kubectl get pods | grep Error | cut -d' ' -f 1 | xargs kubectl delete pod
+```
+* iteration 
+```shell
+    % for i in `seq 1 3`; do kubectl delete pod nginx$i ; done
+```
+
+* get all pod name by deployment 
+```shell
+    kubectl get pods -o name -l app=<APP_NAME>
+```
+* boucle dans une liste de pod 
+```shell
+    for pod in $(kubectl get pods -o name -l app=<APP_NAME>); do echo $pod; done
+    # ex: for pod in $(kubectl get pods -o name -l app=try1); do kubectl exec $pod -- touch /tmp/healthy; done;
+ ```
+
+* kubectl get pod by namespace and label app
+```shell
+    kubectl -n formation-ns-dev get -l app=<APP_NAME> pod
+    or
+    kubectl -n formation-ns-dev get --selector app=<APP_NAME> pod
+ ```
