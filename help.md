@@ -171,3 +171,14 @@
     or
     kubectl -n formation-ns-dev get --selector app=<APP_NAME> pod
  ```
+
+# Command Shell
+
+* get list of current PS (process status) and filter by name 
+```shell
+    ps -elf | grep kube-proxy
+```
+* journalctl (logs of systemd)
+```shell
+    journalctl -a | grep proxy
+```

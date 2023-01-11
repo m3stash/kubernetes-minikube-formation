@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  var5: val5
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2023-01-11T20:27:18Z"
+  name: mycm
+  namespace: default
+  resourceVersion: "48853"
+  uid: 1d1b2e68-526c-4cd5-b370-3abf9a5ceb4b

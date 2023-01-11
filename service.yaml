@@ -7,9 +7,9 @@ spec:
   - port: 80
     protocol: TCP
     nodePort: 32000
-  type: LoadBalancer
+  type: NodePort
   selector:
-    example: second
+    app: proxy
   sessionAffinity: None
 status:
   loadBalancer: {}

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    env:
+      # Define the environment variable
+      - name: VAR5 # Notice that the case is different here
+        valueFrom:
+          configMapKeyRef:
+            name: mycm           # The ConfigMap this value comes from.
+            key: var5
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
