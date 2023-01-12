@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx3
+    volumeMounts:
+    - name: secret
+      mountPath: "/etc/foo"
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+  volumes:
+  - name: secret
+    secret:
+      secretName: mysecret2
+status: {}
